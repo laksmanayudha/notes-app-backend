@@ -4,7 +4,10 @@ import daStyle from 'eslint-config-dicodingacademy';
 
 
 export default [
-  daStyle,
+  { rules: {
+    ...daStyle.rules,
+    'linebreak-style': ['error', 'windows'],
+  } },
   { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
