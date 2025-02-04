@@ -7,6 +7,7 @@ export default [
   { rules: {
     ...daStyle.rules,
     'linebreak-style': ['error', 'windows'],
+    'camelcase': 'off',
   } },
   { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
   { languageOptions: { globals: globals.browser } },
