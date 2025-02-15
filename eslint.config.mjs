@@ -6,7 +6,7 @@ import daStyle from 'eslint-config-dicodingacademy';
 export default [
   { rules: {
     ...daStyle.rules,
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': 'off',
     'camelcase': 'off',
   } },
   { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
