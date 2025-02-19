@@ -1,0 +1,8 @@
+https://microservices.io/patterns/microservices.html
+https://datatracker.ietf.org/doc/html/rfc7519
+https://web.dev/articles/enable-https
+https://blog.restcase.com/4-most-used-rest-api-authentication-methods/
+https://datatracker.ietf.org/doc/html/rfc6749
+https://oauth.net/2/
+https://datatracker.ietf.org/doc/html/rfc7519#section-4
+https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
