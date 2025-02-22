@@ -6,3 +6,5 @@ https://datatracker.ietf.org/doc/html/rfc6749
 https://oauth.net/2/
 https://datatracker.ietf.org/doc/html/rfc7519#section-4
 https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+https://hapi.dev/tutorials/auth/?lang=en_US
+https://hapi.dev/module/jwt/api/?v=2.1.1
