@@ -5,6 +5,8 @@ const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
 const process = require('process');
 const ClientError = require('./exceptions/ClientError');
+const path = require('path');
+const Inert = require('@hapi/inert');
 
 // notes
 const notes = require('./api/notes');
@@ -32,11 +34,18 @@ const _exports = require('./api/exports');
 const ProducerService = require('./services/rabbitmq/ProducerService');
 const ExportsValidator = require('./validator/exports');
 
+// uploads
+const uploads = require('./api/uploads');
+const StorageService = require('./services/storage/StorageService');
+const UploadsValidator = require('./validator/uploads');
+
 const init = async () => {
   const collaborationsService= new CollaborationsService();
   const notesService = new NotesService(collaborationsService);
   const usersService = new UserService();
   const authenticationsService = new AuthenticationsService();
+  // eslint-disable-next-line no-undef
+  const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -53,6 +62,9 @@ const init = async () => {
     {
       plugin: Jwt,
     },
+    {
+      plugin: Inert,
+    }
   ]);
 
   // mendefinisikan strategy autentikasi jwt
@@ -111,7 +123,14 @@ const init = async () => {
         service: ProducerService,
         validator: ExportsValidator,
       }
-    }
+    },
+    {
+      plugin: uploads,
+      options: {
+        service: storageService,
+        validator: UploadsValidator,
+      },
+    },
   ]);
 
   server.ext('onPreResponse', (request, h) => {
