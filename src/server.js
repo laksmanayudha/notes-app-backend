@@ -5,7 +5,6 @@ const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
 const process = require('process');
 const ClientError = require('./exceptions/ClientError');
-const path = require('path');
 const Inert = require('@hapi/inert');
 
 // notes
@@ -36,7 +35,7 @@ const ExportsValidator = require('./validator/exports');
 
 // uploads
 const uploads = require('./api/uploads');
-const StorageService = require('./services/storage/StorageService');
+const StorageService = require('./services/S3/StorageService');
 const UploadsValidator = require('./validator/uploads');
 
 const init = async () => {
@@ -44,8 +43,7 @@ const init = async () => {
   const notesService = new NotesService(collaborationsService);
   const usersService = new UserService();
   const authenticationsService = new AuthenticationsService();
-  // eslint-disable-next-line no-undef
-  const storageService = new StorageService(path.resolve(__dirname, 'api/uploads/file/images'));
+  const storageService = new StorageService();
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -136,6 +134,8 @@ const init = async () => {
   server.ext('onPreResponse', (request, h) => {
     // mendapatkan konteks response dari request
     const { response } = request;
+
+    // console.log(response);
 
     // penanganan client error secara internal
     if (response instanceof ClientError)   {
